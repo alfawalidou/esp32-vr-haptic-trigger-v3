@@ -1,5 +1,6 @@
 param(
-  [string]$Port = "COMx"
+  [ValidateSet("Safe", "Compat")]
+  [string]$Mode = "Compat"
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,7 +18,16 @@ function Resolve-PlatformIO {
   throw "PlatformIO CLI not found. Install it with: python -m pip install --upgrade platformio"
 }
 
+$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $Pio = Resolve-PlatformIO
-Write-Host "Serial monitor: $Port @ 115200 - RTS/DTR inactive"
-& $Pio device monitor -p $Port -b 115200 --rts 0 --dtr 0
+$Environment = if ($Mode -eq "Safe") { "trigger-v3-safe" } else { "trigger-v3-compat" }
+
+Write-Host "Repository : $RepoRoot"
+Write-Host "Environment: $Environment"
+Write-Host "PlatformIO : $Pio"
+
+& $Pio run -d $RepoRoot -e $Environment -t clean
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+& $Pio run -d $RepoRoot -e $Environment
 exit $LASTEXITCODE

@@ -126,6 +126,90 @@ pio run -e trigger-v3-compat
 
 Before a physical flash, read [docs/FLASHING.md](docs/FLASHING.md).
 
+## Quick start: clone, build and flash
+
+### Clone
+
+```powershell
+git clone https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3.git
+cd esp32-vr-haptic-trigger-v3
+```
+
+### PlatformIO CLI
+
+Check that PlatformIO is available:
+
+```powershell
+pio --version
+```
+
+If it is not installed:
+
+```powershell
+python -m pip install --upgrade platformio
+pio --version
+```
+
+### Build only
+
+SAFE build, with physical actuator output disabled:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -Mode Safe
+```
+
+COMPAT build, with physical actuator output enabled:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -Mode Compat
+```
+
+### Build + full erase + flash
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\flash.ps1 -Port COMx
+```
+
+Replace `COMx` with the ESP32 serial port. The helper performs:
+
+```text
+clean
+build trigger-v3-compat
+full flash erase
+upload
+```
+
+### Serial monitor
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
+```
+
+The monitor helper always uses the validated settings:
+
+```text
+115200 baud
+RTS inactive
+DTR inactive
+```
+
+Equivalent direct command:
+
+```powershell
+pio device monitor -p COMx -b 115200 --rts 0 --dtr 0
+```
+
+### Shortest validated workflow
+
+After cloning:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\flash.ps1 -Port COMx
+powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
+```
+
+> Use `trigger-v3-safe` for first wiring checks. Use `trigger-v3-compat` only when the recoil and rumble power stages are ready.
+
 ## Documentation
 
 - [Documentation index](docs/DOCUMENTATION_INDEX.md)

@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.0.0-validated â€” 2026-08-26
+## v3.0.0-validated — 2026-08-26
 
 Initial standalone Trigger V3 snapshot.
 
