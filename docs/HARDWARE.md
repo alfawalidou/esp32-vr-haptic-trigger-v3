@@ -123,3 +123,19 @@ all required control stages share the correct reference ground
 ```
 
 Do not select wire gauge, fuse size, regulator rating or connector rating from firmware values alone; size them from measured actuator current.
+
+<!-- BEGIN AUTO REF IMAGES -->
+
+## Reference images
+
+![](../ref/01.jpg)
+
+![](../ref/02.png)
+
+![](../ref/03.png)
+
+![](../ref/04.png)
+
+![](../ref/05.png)
+
+<!-- END AUTO REF IMAGES -->

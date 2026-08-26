@@ -1,5 +1,8 @@
 # ESP32 VR Haptic Trigger V3
 
+<!-- AUTO REF 01 -->
+![](ref/01.jpg)
+
 ![Trigger V3 concept gunstock](assets/design/trigger-v3-concept-gunstock.png)
 
 Standalone, hardware-validated ESP32 firmware for a DIY VR haptic gun / gunstock controller using Bluetooth Classic SPP and a ForceTube-compatible haptic protocol.
