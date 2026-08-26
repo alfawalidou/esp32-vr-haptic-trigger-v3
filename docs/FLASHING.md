@@ -43,7 +43,7 @@ Replace `COMx` with the actual serial port.
 pio run -e trigger-v3-compat -t upload --upload-port COMx
 ```
 
-## Serial monitor â€” important
+## Serial monitor — important
 
 Use RTS and DTR forced inactive:
 

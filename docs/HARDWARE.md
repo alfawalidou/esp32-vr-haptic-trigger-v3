@@ -21,23 +21,23 @@ Use a classic ESP32 variant that supports **Bluetooth Classic SPP**. Do not assu
 | 22 | OLED SCL | I2C |
 | 4 | Free | intentionally unused |
 
-OLED address: `0x3C`, 128Ã—64 SSD1306.
+OLED address: `0x3C`, 128×64 SSD1306.
 
 ## Recoil path
 
 ```text
 ESP32 GPIO23 / GPIO5
-        â”‚
-        â–¼
+        │
+        ▼
      BTS7960
-        â”‚
-        â–¼
+        │
+        ▼
  recoil solenoid
 ```
 
 Validated haptic constants:
 
-- kick command range: 215â€“255 after mapping
+- kick command range: 215–255 after mapping
 - forward duration: 30 ms
 - reverse pulse: 2 ms
 - reverse level: 25% of requested kick
@@ -49,11 +49,11 @@ The solenoid is not powered from the ESP32.
 
 ```text
 ESP32 GPIO17 PWM
-        â”‚
-        â–¼
+        │
+        ▼
   MOSFET driver stage
-        â”‚
-        â–¼
+        │
+        ▼
  rumble motors
 ```
 
@@ -65,7 +65,7 @@ Firmware values:
 
 - PWM frequency: 175 Hz
 - resolution: 8-bit
-- intensity: 0â€“255
+- intensity: 0–255
 - watchdog: 500 ms
 - hardware apply interval: 10 ms
 
@@ -78,8 +78,8 @@ The validated prototype includes a `1.5KE24CA` TVS across the BTS7960 motor outp
 Both buttons use internal pull-ups.
 
 ```text
-GPIO13 â”€â”€ trigger switch â”€â”€ GND
-GPIO14 â”€â”€ profile switch â”€â”€ GND
+GPIO13 ── trigger switch ── GND
+GPIO14 ── profile switch ── GND
 ```
 
 GPIO14 behavior:
@@ -92,10 +92,10 @@ GPIO4 is not used by the final two-button design.
 ## OLED
 
 ```text
-GPIO21 â”€â”€ SDA
-GPIO22 â”€â”€ SCL
-GND    â”€â”€ GND
-VCC    â”€â”€ supply appropriate for the exact OLED module
+GPIO21 ── SDA
+GPIO22 ── SCL
+GND    ── GND
+VCC    ── supply appropriate for the exact OLED module
 ```
 
 The ESP32 I2C logic is 3.3 V. Verify the power and pull-up arrangement of the exact OLED breakout used.
@@ -112,12 +112,12 @@ Recommended structure:
 
 ```text
 battery / main supply
-       â”‚
-       â”œâ”€â”€ regulator / logic rail â”€â”€ ESP32 + OLED + logic
-       â”‚
-       â”œâ”€â”€ recoil rail â”€â”€ BTS7960 â”€â”€ solenoid
-       â”‚
-       â””â”€â”€ rumble rail â”€â”€ motors + MOSFET stage
+       │
+       ├── regulator / logic rail ── ESP32 + OLED + logic
+       │
+       ├── recoil rail ── BTS7960 ── solenoid
+       │
+       └── rumble rail ── motors + MOSFET stage
 
 all required control stages share the correct reference ground
 ```

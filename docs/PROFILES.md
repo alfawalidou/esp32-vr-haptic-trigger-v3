@@ -23,7 +23,7 @@ Hold GPIO14 for about one second to toggle modes.
 | M16 | AUTO | 240 | 125 | kick every 150 ms; rumble remains active while held |
 | P90 | AUTO | 220 | 159 | kick every 150 ms; rumble remains active while held |
 | PKM | AUTO | 129 | 255 | kick every 150 ms; rumble remains active while held |
-| LASER | CHARGE_RELEASE | 255 | 0â†’255 | 20-step charge over 2600 ms; release performs KICK then stops rumble |
+| LASER | CHARGE_RELEASE | 255 | 0→255 | 20-step charge over 2600 ms; release performs KICK then stops rumble |
 
 The 150 ms automatic cadence is an inherited tuning value, not a claim about real firearm cadence.
 

@@ -12,7 +12,7 @@ This is a practical BOM for the current Trigger V3 prototype. Exact current/volt
 | Flyback / transient protection for rumble stage | as required | motor switching protection |
 | `1.5KE24CA` TVS | 1 | BTS7960 motor-output transient clamp |
 | WS2812B-compatible RGB LEDs | 2 | status |
-| SSD1306 OLED 128Ã—64 I2C `0x3C` | 1 | display |
+| SSD1306 OLED 128×64 I2C `0x3C` | 1 | display |
 | Momentary trigger switch | 1 | GPIO13 |
 | Momentary profile/mode switch | 1 | GPIO14 |
 | Buzzer / sounder | 1 | GPIO27 |

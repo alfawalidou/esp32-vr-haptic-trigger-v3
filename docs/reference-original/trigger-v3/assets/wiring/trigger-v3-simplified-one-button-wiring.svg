@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980">
+<style>
+.title{font:700 34px sans-serif;fill:#102b4e}.sub{font:20px sans-serif;fill:#555}.h{font:700 23px sans-serif;fill:#fff}.t{font:18px sans-serif;fill:#17212b}.mono{font:18px monospace;fill:#17212b}.note{font:700 17px sans-serif;fill:#8a4b00}.box{fill:#f7fafc;stroke:#8099b3;stroke-width:2}.blue{fill:#1768ac}.green{fill:#27884a}.orange{fill:#d57012}.purple{fill:#7650a5}.red{fill:#bd3030}.gray{fill:#6b7280}
+</style>
+<rect width="1500" height="980" fill="white"/>
+<text x="45" y="55" class="title">Trigger V3 — cible matérielle simplifiée à un bouton PROFILE</text>
+<text x="45" y="88" class="sub">Trigger GPIO13 + PROFILE GPIO4 • aucun bouton MODE séparé après migration firmware</text>
+
+<!-- controller -->
+<rect x="515" y="155" width="470" height="585" rx="28" fill="#202733" stroke="#65758a" stroke-width="4"/>
+<text x="635" y="365" font-family="sans-serif" font-size="42" font-weight="700" fill="white">ESP32 DEVKIT</text>
+<text x="680" y="410" font-family="sans-serif" font-size="22" fill="#d4dbe5">DIY shield</text>
+<rect x="680" y="660" width="140" height="52" rx="9" fill="#888"/><text x="721" y="693" font-family="sans-serif" font-size="19" font-weight="700" fill="white">USB</text>
+
+<!-- left output boxes -->
+<rect x="45" y="155" width="390" height="72" rx="12" class="red"/><text x="70" y="185" class="h">BTS7960 RPWM</text><text x="70" y="212" class="h">D23 / GPIO23</text><line x1="435" y1="191" x2="515" y2="235" stroke="#bd3030" stroke-width="5"/>
+<rect x="45" y="245" width="390" height="72" rx="12" class="orange"/><text x="70" y="275" class="h">Buzzer</text><text x="70" y="302" class="h">D27 / GPIO27</text><line x1="435" y1="281" x2="515" y2="385" stroke="#d57012" stroke-width="5"/>
+<rect x="45" y="335" width="390" height="72" rx="12" class="purple"/><text x="70" y="365" class="h">Trigger physique</text><text x="70" y="392" class="h">D13 / GPIO13 → bouton NO → GND</text><line x1="435" y1="371" x2="515" y2="535" stroke="#7650a5" stroke-width="5"/>
+<rect x="45" y="425" width="390" height="72" rx="12" class="gray"/><text x="70" y="455" class="h">GPIO14 / D14</text><text x="70" y="482" class="h">LIBRE dans la cible simplifiée</text><line x1="435" y1="461" x2="515" y2="485" stroke="#6b7280" stroke-width="4" stroke-dasharray="10 8"/>
+
+<!-- right boxes -->
+<rect x="1065" y="145" width="390" height="72" rx="12" class="red"/><text x="1090" y="175" class="h">BTS7960 LPWM</text><text x="1090" y="202" class="h">D5 / GPIO5</text><line x1="985" y1="245" x2="1065" y2="181" stroke="#bd3030" stroke-width="5"/>
+<rect x="1065" y="235" width="390" height="72" rx="12" class="orange"/><text x="1090" y="265" class="h">Rumble MOSFET</text><text x="1090" y="292" class="h">TX2 / GPIO17</text><line x1="985" y1="315" x2="1065" y2="271" stroke="#d57012" stroke-width="5"/>
+<rect x="1065" y="325" width="390" height="72" rx="12" class="green"/><text x="1090" y="355" class="h">WS2812 data</text><text x="1090" y="382" class="h">RX2 / GPIO16</text><line x1="985" y1="385" x2="1065" y2="361" stroke="#27884a" stroke-width="5"/>
+<rect x="1065" y="415" width="390" height="72" rx="12" class="purple"/><text x="1090" y="445" class="h">PROFILE unique</text><text x="1090" y="472" class="h">D4 / GPIO4 → bouton NO → GND</text><line x1="985" y1="455" x2="1065" y2="451" stroke="#7650a5" stroke-width="5"/>
+
+<!-- OLED -->
+<rect x="1065" y="515" width="390" height="210" rx="15" class="box"/>
+<rect x="1065" y="515" width="390" height="48" rx="15" class="blue"/><text x="1090" y="547" class="h">OLED SSD1306 128×64 / 0x3C</text>
+<g class="mono"><text x="1090" y="595">VCC → 3V3</text><text x="1090" y="630">GND → GND</text><text x="1090" y="665">SDA → D21 / GPIO21</text><text x="1090" y="700">SCL → D22 / GPIO22</text></g>
+<line x1="985" y1="525" x2="1065" y2="665" stroke="#1768ac" stroke-width="4"/>
+
+<!-- profile behavior block -->
+<rect x="45" y="575" width="390" height="215" rx="15" class="box"/>
+<text x="70" y="615" font-family="sans-serif" font-size="23" font-weight="700" fill="#7650a5">Bouton PROFILE cible</text>
+<text x="70" y="655" class="t">Appui court → profil suivant</text>
+<text x="70" y="690" class="t">Appui long ~1 s → HAPTIC_ONLY</text>
+<text x="70" y="720" class="t">                     ↔ TRIGGER_FALLBACK</text>
+<text x="70" y="760" class="t">GPIO4 est un strapping pin :</text><text x="70" y="785" class="t">ne pas maintenir LOW au boot/reset.</text>
+
+<!-- profiles -->
+<rect x="465" y="785" width="570" height="150" rx="15" class="box"/>
+<text x="495" y="825" font-family="sans-serif" font-size="23" font-weight="700" fill="#102b4e">Le profil décide du comportement</text>
+<g class="mono"><text x="495" y="860">PISTOL / SNIPER → SINGLE</text><text x="495" y="892">M16 / P90       → AUTO</text><text x="495" y="924">LASER           → CHARGE_RELEASE (UNCALIBRATED)</text></g>
+
+<!-- status warning -->
+<rect x="45" y="835" width="390" height="105" rx="14" fill="#fff4dc" stroke="#d59016" stroke-width="3"/>
+<text x="70" y="870" class="note">ATTENTION — firmware actuel be13f75 :</text>
+<text x="70" y="900" class="t">GPIO14 fait encore HAPTIC/TRIG.</text>
+<text x="70" y="928" class="t">Migration GPIO4-long-press à faire séparément.</text>
+
+<text x="1070" y="790" class="note">Masse commune obligatoire.</text>
+<text x="1070" y="820" class="t">OLED sur 3V3 — jamais sur une GPIO.</text>
+<text x="1070" y="850" class="t">Solénoïde / moteurs : drivers + alim dédiée.</text>
+</svg>
