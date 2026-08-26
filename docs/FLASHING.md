@@ -60,13 +60,3 @@ pio device monitor -p COMx -b 115200
 ```
 
 The reset performed by the upload tool after flashing is separate and expected.
-
-## Windows path-length note
-
-One validated Windows setup used:
-
-```powershell
-$env:PLATFORMIO_CORE_DIR = "<LOCAL_PLATFORMIO_CORE_DIR>"
-```
-
-to keep PlatformIO package paths short. This is a workstation-specific workaround, not a firmware requirement.

@@ -170,7 +170,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -Mode Compat
 powershell -ExecutionPolicy Bypass -File .\scripts\flash.ps1 -Port COMx
 ```
 
-Replace `COMx` with the ESP32 serial port. The helper performs:
+Replace `COMx` with the ESP32 serial port reported by `pio device list`. The helper performs:
 
 ```text
 clean

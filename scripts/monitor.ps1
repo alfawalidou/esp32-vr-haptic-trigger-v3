@@ -1,19 +1,17 @@
 param(
-  [string]$Port = "COMx"
+  [Parameter(Mandatory = $true)]
+  [string]$Port
 )
 
 $ErrorActionPreference = "Stop"
 
 function Resolve-PlatformIO {
-  $known = "pio"
-  if (Test-Path $known) {
-    if (-not $env:PLATFORMIO_CORE_DIR) { $env:PLATFORMIO_CORE_DIR = "<LOCAL_PLATFORMIO_CORE_DIR>" }
-    return $known
-  }
   $cmd = Get-Command pio -ErrorAction SilentlyContinue
   if ($cmd) { return $cmd.Source }
+
   $cmd = Get-Command platformio -ErrorAction SilentlyContinue
   if ($cmd) { return $cmd.Source }
+
   throw "PlatformIO CLI not found. Install it with: python -m pip install --upgrade platformio"
 }
 

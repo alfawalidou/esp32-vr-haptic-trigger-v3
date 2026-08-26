@@ -1,17 +1,7 @@
 param(
-  [string]$Port = "COMx"
+  [Parameter(Mandatory = $true)]
+  [string]$Port
 )
 
-$ErrorActionPreference = "Stop"
-
-pio run -e trigger-v3-compat -t clean
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-pio run -e trigger-v3-compat
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-pio run -e trigger-v3-compat -t erase --upload-port $Port
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-pio run -e trigger-v3-compat -t upload --upload-port $Port
+& (Join-Path $PSScriptRoot "flash.ps1") -Port $Port
 exit $LASTEXITCODE

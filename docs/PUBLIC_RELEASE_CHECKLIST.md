@@ -19,3 +19,4 @@ This standalone repository is prepared to become public later, but the following
 - [ ] Remove any future secrets, tokens, private serials, local paths or personal metadata before changing repository visibility.
 
 The repository should remain private until this checklist is intentionally reviewed.
+- [x] remove local drive paths, Windows username/hostname references and development COM port from Git history
