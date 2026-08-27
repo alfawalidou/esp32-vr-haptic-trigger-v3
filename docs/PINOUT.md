@@ -1,6 +1,8 @@
 # Final Trigger V3 pinout and breakout mapping
 
 > Current standalone authority: GPIO13 = TRIGGER, GPIO14 = PROFILE/MODE, GPIO4 = unused. The original wiring document below is preserved because it contains the detailed 30-pin breakout mapping. Its older SAFE-only validation notes are historical; the final COMPAT build has since been physically validated.
+>
+> **OLED power correction — 28/08/2026:** for the validated prototype, OLED VCC is **strongly recommended from the external regulated 5 V buck output**. Do **not** use the ESP32 `3V3` pin for OLED VCC on this build. The exact tested OLED module kept SDA/SCL at about 3.2 V with VCC at 5 V; other OLED breakouts must be checked before using the same arrangement.
 
 # Trigger V3 — câblage final à deux boutons physiques
 
@@ -96,9 +98,11 @@ Le comportement de tir est défini par le profil :
 9. `GND`
 10. `3V3`
 
+> The `3V3` terminal above is part of the physical breakout mapping only. It is **not** the recommended OLED VCC source for the validated prototype.
+
 ## Borniers utilisés par Trigger V3
 
-| Fonction | GPIO ESP32 | Bornier du shield |
+| Fonction | GPIO ESP32 / source | Bornier / connexion |
 |---|---:|---|
 | BTS7960 RPWM | 23 | `D23` — rangée haute, position 6 |
 | OLED SCL | 22 | `D22` — rangée haute, position 7 |
@@ -109,8 +113,8 @@ Le comportement de tir est défini par le profil :
 | PROFILE | 14 | `D14` — côté gauche, position 6 |
 | Buzzer | 27 | `D27` — côté gauche, position 5 |
 | Trigger | 13 | `D13` — côté gauche, position 8 |
-| OLED VCC | 3.3 V | `3V3` — côté droit, position 10 |
-| OLED GND / boutons | GND | l'un des borniers `GND` |
+| OLED VCC | external regulated 5 V | **buck OUT; strongly recommended instead of ESP32 3V3** |
+| OLED GND / boutons | GND | common ground |
 
 ### GPIO4
 
@@ -125,14 +129,28 @@ Le comportement de tir est défini par le profil :
 
 ## OLED SSD1306
 
+### Validated / recommended wiring
+
 ```text
-OLED GND -> GND
-OLED VCC -> 3V3
+OLED GND -> common GND
+OLED VCC -> external regulated 5 V buck OUT
 OLED SDA -> GPIO21 / D21
 OLED SCL -> GPIO22 / D22
 ```
 
-Paramètres : SSD1306 `128x64`, adresse `0x3C`, SDA21/SCL22, I2C 400 kHz, timeout 20 ms.
+**Do not connect OLED VCC to the ESP32 `3V3` pin on the validated prototype.** Repeated troubleshooting showed severe instability when the OLED VCC lead was connected to ESP32 `3V3`; moving OLED VCC directly to the regulated 5 V buck output restored stable autonomous operation over repeated multi-minute tests.
+
+The exact OLED module used here was checked before finalizing this wiring:
+
+```text
+OLED VCC = 5.0 V
+OLED SDA ≈ 3.2 V
+OLED SCL ≈ 3.2 V
+```
+
+Therefore SDA/SCL remained compatible with the ESP32 3.3 V I2C logic on this specific module. **Do not assume every SSD1306 breakout behaves the same way.** For another module, verify that it accepts 5 V VCC and that its I2C pull-ups do not raise SDA/SCL to 5 V.
+
+Firmware parameters remain: SSD1306 `128x64`, address `0x3C`, SDA21/SCL22, I2C 400 kHz, timeout 20 ms.
 
 ## Trigger et PROFILE
 
@@ -148,7 +166,9 @@ Aucune résistance pull-up externe n'est requise pour la logique actuelle.
 ## Alimentation et masse
 
 - Masse commune obligatoire : ESP32, BTS7960 logique, MOSFET rumble, buck, OLED et boutons.
-- OLED : utiliser `3V3`.
+- **OLED VCC : external regulated 5 V from buck OUT is strongly recommended and is the validated wiring.**
+- **Do not use ESP32 `3V3` as OLED VCC on this prototype.**
+- SDA/SCL restent des signaux logiques ESP32 3,3 V sur GPIO21/GPIO22.
 - Ne jamais alimenter le solénoïde ou les moteurs rumble depuis une GPIO ESP32.
 - La puissance solénoïde reste séparée via BTS7960.
 
