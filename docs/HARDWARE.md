@@ -17,8 +17,8 @@ Use a classic ESP32 variant that supports **Bluetooth Classic SPP**. Do not assu
 | 13 | Trigger | active LOW, `INPUT_PULLUP` |
 | 14 | Profile / mode button | active LOW, `INPUT_PULLUP` |
 | 27 | Buzzer | local feedback |
-| 21 | OLED SDA | I2C |
-| 22 | OLED SCL | I2C |
+| 21 | OLED SDA | I2C, 3.3 V logic |
+| 22 | OLED SCL | I2C, 3.3 V logic |
 | 4 | Free | intentionally unused |
 
 OLED address: `0x3C`, 128×64 SSD1306.
@@ -89,16 +89,27 @@ GPIO14 behavior:
 
 GPIO4 is not used by the final two-button design.
 
-## OLED
+## OLED — important power wiring
+
+The **strongly recommended and physically validated wiring** for this prototype is:
 
 ```text
-GPIO21 ── SDA
-GPIO22 ── SCL
-GND    ── GND
-VCC    ── supply appropriate for the exact OLED module
+external regulated 5 V buck OUT ── OLED VCC
+common GND                       ── OLED GND
+ESP32 GPIO21                     ── OLED SDA
+ESP32 GPIO22                     ── OLED SCL
 ```
 
-The ESP32 I2C logic is 3.3 V. Verify the power and pull-up arrangement of the exact OLED breakout used.
+**Do not power the OLED from the ESP32 `3V3` pin on the validated prototype.** During troubleshooting, the OLED VCC lead connected to ESP32 `3V3` was correlated with severe ESP32 / Bluetooth instability under haptic operation, even when the far end of that lead was disconnected from the OLED. Moving OLED VCC to the regulated external 5 V buck output produced stable autonomous operation over repeated multi-minute tests.
+
+For the exact OLED module used on the prototype, measurements with OLED VCC at 5 V showed SDA and SCL at approximately 3.2 V, which is compatible with the ESP32 3.3 V I2C logic used here.
+
+This is **module-specific**. Before using 5 V VCC on another SSD1306 breakout:
+
+- confirm that the module itself is rated for 5 V VCC;
+- measure or verify its SDA/SCL pull-up voltage;
+- do not connect SDA/SCL directly to the ESP32 if the breakout pulls them up to 5 V;
+- keep the OLED and ESP32 on a common ground.
 
 ## WS2812B LEDs
 
@@ -108,19 +119,23 @@ GPIO16 drives two addressable LEDs. They indicate Bluetooth and haptic/profile s
 
 Treat logic power and actuator power as separate engineering responsibilities even if both originate from one battery/source.
 
-Recommended structure:
+Validated / recommended structure for this prototype:
 
 ```text
 battery / main supply
        │
-       ├── regulator / logic rail ── ESP32 + OLED + logic
+       ├── regulated 5 V buck OUT ──┬── ESP32 VIN / 5V input
+       │                            └── OLED VCC  (strongly recommended)
        │
        ├── recoil rail ── BTS7960 ── solenoid
        │
        └── rumble rail ── motors + MOSFET stage
 
+ESP32 GPIO21/22 provide 3.3 V I2C logic only
 all required control stages share the correct reference ground
 ```
+
+Do not route OLED VCC from the ESP32 `3V3` pin on this validated build. Keep OLED power as a separate branch from the external regulated 5 V source.
 
 Do not select wire gauge, fuse size, regulator rating or connector rating from firmware values alone; size them from measured actuator current.
 
