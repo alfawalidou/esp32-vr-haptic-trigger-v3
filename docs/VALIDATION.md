@@ -29,6 +29,32 @@ Validated on physical hardware with the `trigger-v3-compat` environment.
 | PKM local auto + rumble | PASS |
 | LASER local 2600 ms charge/release | PASS |
 | Mixed long haptic traffic with OLED attached | PASS |
+| OLED VCC from external regulated 5 V buck OUT, autonomous operation | **PASS — validated 28/08/2026** |
+
+## OLED power wiring correction — 28/08/2026
+
+Post-validation troubleshooting identified the OLED power lead as a hardware stability sensitivity on the prototype.
+
+The final validated arrangement is:
+
+```text
+OLED VCC -> external regulated 5 V buck OUT
+OLED GND -> common GND
+OLED SDA -> ESP32 GPIO21
+OLED SCL -> ESP32 GPIO22
+```
+
+On this prototype, powering/routing OLED VCC from the ESP32 `3V3` pin was associated with severe instability during haptic operation. Moving OLED VCC directly to the regulated external 5 V buck output restored stable autonomous operation over repeated multi-minute tests.
+
+Measurements on the exact tested OLED module with VCC at 5 V:
+
+```text
+OLED VCC = 5.0 V
+OLED SDA ≈ 3.2 V
+OLED SCL ≈ 3.2 V
+```
+
+This confirms the tested module kept its I2C lines within ESP32-compatible 3.3 V logic levels. This result is module-specific; another SSD1306 breakout must be checked before using 5 V VCC.
 
 ## Final build footprint observed
 
