@@ -20,11 +20,14 @@ This repository contains **Trigger V3 only**. Historical V1/V2 firmware variants
 - Final controls: GPIO13 TRIGGER + GPIO14 PROFILE/MODE
 - GPIO4: unused/free
 - OLED: SSD1306 128x64 at I2C address `0x3C`
+- **OLED VCC: strongly recommended and validated from the external regulated 5 V buck output, not from the ESP32 3V3 pin**
 - Recoil: BTS7960 + solenoid
 - Rumble: GPIO17 PWM through an external MOSFET driver stage
 - Status LEDs: two WS2812B on GPIO16
 
 The final COMPAT build was physically validated with OLED, buttons, local profiles, Bluetooth/APK haptics, Bluetooth disconnect/reconnect, APK restart and physical reset.
+
+> **Important OLED power note:** on the validated prototype, routing OLED VCC from the ESP32 `3V3` pin caused severe instability under haptic operation. Moving OLED VCC to the regulated external **5 V buck output** removed the fault during repeated autonomous testing. For the exact OLED module tested, SDA and SCL remained at about 3.2 V while VCC was 5 V. If you use a different OLED breakout, verify its allowed VCC range and confirm that its I2C pull-ups do not drive SDA/SCL above the ESP32 3.3 V logic level.
 
 ## Design concept
 
@@ -69,8 +72,9 @@ The Bluetooth and local-trigger paths share the same `HapticController`. Overlap
 | BTS7960 LPWM | 5 | recoil control |
 | WS2812B data | 16 | two LEDs |
 | Buzzer | 27 | optional feedback |
-| OLED SDA | 21 | I2C |
-| OLED SCL | 22 | I2C |
+| OLED SDA | 21 | I2C, 3.3 V logic |
+| OLED SCL | 22 | I2C, 3.3 V logic |
+| OLED VCC | — | **external regulated 5 V buck output strongly recommended; do not use ESP32 3V3 on the validated prototype** |
 | Free / unused | 4 | intentionally unused |
 
 Buttons connect between their GPIO and GND and use internal pull-ups.
@@ -260,6 +264,8 @@ The layout deliberately uses plain ASCII tree characters so it renders correctly
 ## Safety
 
 ESP32 GPIO pins provide logic/control signals only. Never power the recoil solenoid or rumble motors directly from an ESP32 GPIO.
+
+For the validated prototype, **do not power the OLED from the ESP32 3V3 pin**. Use the regulated external 5 V buck output for OLED VCC and keep a common ground. This recommendation applies to the exact tested OLED module; for another breakout, verify the module VCC rating and confirm that SDA/SCL remain within ESP32-safe 3.3 V logic levels before connecting them.
 
 Verify the actual power source, measured current, fuse/protection, wire gauge, connectors, MOSFET stage, BTS7960 cooling, common ground strategy and mechanical mounting before energizing a rebuild.
 
