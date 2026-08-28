@@ -1044,18 +1044,25 @@ void showAuthorSplash(uint32_t now) {
 
   gDisplay.clearDisplay();
   gDisplay.setTextColor(SSD1306_WHITE);
-  gDisplay.setTextSize(2);
-  gDisplay.setCursor(4, 0);
-  gDisplay.print("TRIGGER V3");
   gDisplay.setTextSize(1);
-  gDisplay.setCursor(0, 20);
-  gDisplay.print("by alfawalidou /");
-  gDisplay.setCursor(0, 30);
-  gDisplay.print("McWall");
-  gDisplay.setCursor(0, 42);
-  gDisplay.print("GitHub: alfawalidou");
-  gDisplay.setCursor(0, 54);
-  gDisplay.print("@McWall07 | .mcwall");
+
+  // Project name
+  gDisplay.setCursor(31, 2);
+  gDisplay.print("VR HapGunV3");
+
+  // Separator
+  gDisplay.drawLine(0, 13, 127, 13, SSD1306_WHITE);
+
+  // Contact / provenance
+  gDisplay.setCursor(0, 18);
+  gDisplay.print("Discord: .mcwall");
+
+  gDisplay.setCursor(0, 32);
+  gDisplay.print("Telegram: @McWall07");
+
+  gDisplay.setCursor(0, 46);
+  gDisplay.print("GitHub: @alfawalidou");
+
   gDisplay.display();
   gAuthorSplashUntil = now + identity::kAuthorSplashDurationMs;
   gDisplayDirty = true;
