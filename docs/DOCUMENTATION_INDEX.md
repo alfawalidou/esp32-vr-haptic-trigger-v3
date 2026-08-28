@@ -1,5 +1,11 @@
 # Documentation index
 
+## Start here for a first build
+
+- [`../START_HERE.md`](../START_HERE.md) - **single-path beginner walkthrough** for Windows: prerequisites, clone, wiring, COM-port detection, build, full erase, flash, Bluetooth test and `HAPTIC_ONLY` / `TRIGGER_FALLBACK` verification
+
+If you are building the project for the first time and do not need firmware-development details, use `START_HERE.md` and do not mix it with the manual PlatformIO paths below.
+
 ## Current authoritative documentation
 
 - `ARCHITECTURE.md` - firmware modules and runtime data flow
