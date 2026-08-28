@@ -1,5 +1,8 @@
 # START HERE — Beginner build and first flash
 
+**ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall**  
+GitHub: `@alfawalidou` · Discord: `.mcwall` · Telegram: `@McWall07`
+
 This is the **single recommended beginner path** for building and flashing ESP32 VR Haptic Trigger V3 on **Windows 10/11**.
 
 If you are not a developer and you simply want to build the hardware, clone the firmware, flash it, and test both operating modes, follow this page from top to bottom. Do not mix these steps with the advanced/manual PlatformIO commands in the other documents unless you are troubleshooting.
@@ -384,5 +387,12 @@ You do **not** need these files to complete the normal first build and flash. Th
 - [`docs/PROTOCOL.md`](docs/PROTOCOL.md) — Bluetooth protocol
 - [`docs/FLASHING.md`](docs/FLASHING.md) — manual PlatformIO build/flash commands
 - [`docs/VALIDATION.md`](docs/VALIDATION.md) — physical validation results
+- [`AUTHORS.md`](AUTHORS.md) — author and attribution record
+- [`PROJECT_PROVENANCE.md`](PROJECT_PROVENANCE.md) — project origin and firmware provenance markers
 
 Reference photos are stored in [`ref/`](ref/).
+
+---
+
+**ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall**  
+GitHub `@alfawalidou` · Discord `.mcwall` · Telegram `@McWall07`
