@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.1.0 — 2026-08-28
+
+First public binary release preparation for the standalone Trigger V3 project.
+
+Highlights:
+
+- version bumped from `3.0.0-validated` to `3.1.0` for the public release line;
+- new `VR HapGunV3` OLED boot identity splash;
+- authorship and provenance metadata consolidated under **alfawalidou / McWall**;
+- Wokwi simulation environment added for OLED/UI and simulated ForceTube input testing;
+- current first-party project code and documentation moved to **PolyForm Noncommercial License 1.0.0**;
+- planned downloadable SAFE, COMPAT and complete/factory flash binaries with SHA-256 checksums.
+
+The physical firmware behavior remains based on the previously validated Trigger V3 baseline. The new OLED splash was visually validated in Wokwi before this release preparation.
+
 ## Noncommercial licensing policy — 2026-08-28
 
 The current project is now licensed under **PolyForm Noncommercial License 1.0.0** (`PolyForm-Noncommercial-1.0.0`).
