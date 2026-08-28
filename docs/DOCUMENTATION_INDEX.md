@@ -17,6 +17,14 @@ If you are building the project for the first time and do not need firmware-deve
 - [`../LICENSE`](../LICENSE) - Apache License 2.0
 - [`../NOTICE`](../NOTICE) - redistribution attribution notice
 
+## Simulation
+
+- [`WOKWI_SIMULATION.md`](WOKWI_SIMULATION.md) - Wokwi setup for OLED, buttons, LEDs, PWM/recoil outputs, logic analyzer and simulated ForceTube input through the Serial Terminal
+- [`../diagram.json`](../diagram.json) - virtual ESP32 Trigger V3 circuit
+- [`../wokwi.toml`](../wokwi.toml) - Wokwi firmware/ELF configuration
+
+The Wokwi environment is simulation-only. Real hardware must continue to use `trigger-v3-safe` or `trigger-v3-compat`.
+
 ## Current authoritative documentation
 
 - `ARCHITECTURE.md` - firmware modules and runtime data flow
