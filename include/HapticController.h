@@ -1,3 +1,13 @@
+/*
+ * ESP32 VR Haptic Trigger V3
+ * Original project by alfawalidou / McWall
+ * GitHub: https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3
+ * Discord: .mcwall | Telegram: @McWall07
+ *
+ * Copyright 2026 alfawalidou / McWall
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #pragma once
 
 #include <Arduino.h>
