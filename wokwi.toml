@@ -3,10 +3,7 @@
 # Discord: .mcwall | Telegram: @McWall07
 # SPDX-License-Identifier: Apache-2.0
 
-param(
-  [Parameter(Mandatory = $true)]
-  [string]$Port
-)
-
-& (Join-Path $PSScriptRoot "flash.ps1") -Port $Port
-exit $LASTEXITCODE
+[wokwi]
+version = 1
+firmware = '.pio/build/trigger-v3-wokwi/firmware.bin'
+elf = '.pio/build/trigger-v3-wokwi/firmware.elf'

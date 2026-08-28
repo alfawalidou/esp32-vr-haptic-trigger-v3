@@ -3,11 +3,6 @@
 # Discord: .mcwall | Telegram: @McWall07
 # SPDX-License-Identifier: Apache-2.0
 
-param(
-  [ValidateSet("Safe", "Compat")]
-  [string]$Mode = "Compat"
-)
-
 $ErrorActionPreference = "Stop"
 
 function Resolve-PlatformIO {
@@ -22,14 +17,28 @@ function Resolve-PlatformIO {
 
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $Pio = Resolve-PlatformIO
-$Environment = if ($Mode -eq "Safe") { "trigger-v3-safe" } else { "trigger-v3-compat" }
+$Environment = "trigger-v3-wokwi"
 
+Write-Host "ESP32 VR Haptic Trigger V3 - Wokwi build"
+Write-Host "by alfawalidou / McWall"
 Write-Host "Repository : $RepoRoot"
 Write-Host "Environment: $Environment"
-Write-Host "PlatformIO : $Pio"
+Write-Host ""
 
 & $Pio run -d $RepoRoot -e $Environment -t clean
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 & $Pio run -d $RepoRoot -e $Environment
-exit $LASTEXITCODE
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+$Firmware = Join-Path $RepoRoot ".pio\build\trigger-v3-wokwi\firmware.bin"
+$Elf = Join-Path $RepoRoot ".pio\build\trigger-v3-wokwi\firmware.elf"
+
+Write-Host ""
+Write-Host "WOKWI BUILD COMPLETE" -ForegroundColor Green
+Write-Host "Firmware: $Firmware"
+Write-Host "ELF     : $Elf"
+Write-Host ""
+Write-Host "With the Wokwi VS Code extension installed, open diagram.json and start the simulator."
+Write-Host "Serial terminal commands: KICK 255, RUMBLE 128, RUMBLE 0, BT OFF, BT ON, HELP"
+Write-Host "See docs\WOKWI_SIMULATION.md for the full walkthrough."

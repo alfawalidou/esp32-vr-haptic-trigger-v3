@@ -1,5 +1,10 @@
 # ESP32 VR Haptic Trigger V3
 
+**Created and maintained by [@alfawalidou](https://github.com/alfawalidou) / McWall**  
+Discord: `.mcwall` · Telegram: `@McWall07`
+
+> If you reuse, fork, modify, redistribute, demonstrate or publish work based on this project, please preserve the original attribution: **ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall**.
+
 <!-- AUTO REF 01 -->
 ![](ref/01.jpg)
 
@@ -159,9 +164,24 @@ powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
 
 The monitor helper always uses 115200 baud with RTS and DTR inactive.
 
+## Author, attribution and provenance
+
+ESP32 VR Haptic Trigger V3 is the original project of **alfawalidou / McWall**.
+
+- GitHub: [@alfawalidou](https://github.com/alfawalidou)
+- Discord: `.mcwall`
+- Telegram: `@McWall07`
+- Official repository: <https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3>
+
+The firmware embeds readable project identity strings plus a passive provenance marker. It does **not** perform tracking, phone-home behavior or network telemetry for attribution. See [`PROJECT_PROVENANCE.md`](PROJECT_PROVENANCE.md).
+
+This project is licensed under **Apache License 2.0**. Redistributions and derivatives must comply with [`LICENSE`](LICENSE) and preserve the applicable notices in [`NOTICE`](NOTICE). See also [`AUTHORS.md`](AUTHORS.md) and [`CITATION.cff`](CITATION.cff).
+
 ## Documentation
 
 - **[Beginner start-to-finish walkthrough](START_HERE.md)**
+- [Author and attribution](AUTHORS.md)
+- [Project provenance and origin markers](PROJECT_PROVENANCE.md)
 - [Documentation index](docs/DOCUMENTATION_INDEX.md)
 - [Firmware architecture](docs/ARCHITECTURE.md)
 - [Final hardware and wiring](docs/HARDWARE.md)
@@ -181,11 +201,17 @@ The monitor helper always uses 115200 baud with RTS and DTR inactive.
 ```text
 .
 |-- START_HERE.md
+|-- AUTHORS.md
+|-- PROJECT_PROVENANCE.md
+|-- CITATION.cff
+|-- LICENSE
+|-- NOTICE
 |-- include/
 |   |-- BootHealth.h
 |   |-- ForceTubeProtocol.h
 |   |-- HapticController.h
 |   |-- HapticProfiles.h
+|   |-- ProjectIdentity.h
 |   `-- TriggerV3Config.h
 |-- src/
 |   |-- BootHealth.cpp
