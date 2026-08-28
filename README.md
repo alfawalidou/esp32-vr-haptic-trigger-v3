@@ -11,6 +11,14 @@ This repository contains **Trigger V3 only**. Historical V1/V2 firmware variants
 
 > Not affiliated with ProTubeVR. `ForceTube` is referenced only to describe protocol compatibility observed during development.
 
+> ## New to ESP32, Git or PlatformIO?
+>
+> **Start here: [`START_HERE.md`](START_HERE.md)**
+>
+> It is the single recommended Windows beginner path from prerequisites -> cloning -> wiring -> COM-port detection -> build -> full erase -> flash -> Bluetooth test -> `HAPTIC_ONLY` / `TRIGGER_FALLBACK` test.
+>
+> If your goal is simply to build and use the haptic gun, follow `START_HERE.md` from top to bottom and ignore the advanced/manual build commands until you need troubleshooting or development details.
+
 ## Validated baseline
 
 - Firmware tag: `v3.0.0-validated`
@@ -117,7 +125,9 @@ See [docs/PROTOCOL.md](docs/PROTOCOL.md).
 
 The detailed original wiring reconstruction is preserved and indexed in [docs/RUMBLE_WIRING.md](docs/RUMBLE_WIRING.md).
 
-## Build
+## Build — developer / manual reference
+
+**First-time users should use [`START_HERE.md`](START_HERE.md) instead of this section.**
 
 Safe build:
 
@@ -131,94 +141,27 @@ Physical actuator build:
 pio run -e trigger-v3-compat
 ```
 
-Before a physical flash, read [docs/FLASHING.md](docs/FLASHING.md).
+Before a manual physical flash, read [docs/FLASHING.md](docs/FLASHING.md).
 
-## Quick start: clone, build and flash
-
-### Clone
+The beginner helper used by `START_HERE.md` is:
 
 ```powershell
-git clone https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3.git
-cd esp32-vr-haptic-trigger-v3
+powershell -ExecutionPolicy Bypass -File .\scripts\first-flash.ps1
 ```
 
-### PlatformIO CLI
+It guides the user through COM-port selection and wiring confirmation, then calls the validated COMPAT workflow: clean -> build -> full erase -> upload.
 
-Check that PlatformIO is available:
-
-```powershell
-pio --version
-```
-
-If it is not installed:
-
-```powershell
-python -m pip install --upgrade platformio
-pio --version
-```
-
-### Build only
-
-SAFE build, with physical actuator output disabled:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -Mode Safe
-```
-
-COMPAT build, with physical actuator output enabled:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -Mode Compat
-```
-
-### Build + full erase + flash
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\flash.ps1 -Port COMx
-```
-
-Replace `COMx` with the ESP32 serial port reported by `pio device list`. The helper performs:
-
-```text
-clean
-build trigger-v3-compat
-full flash erase
-upload
-```
-
-### Serial monitor
+For diagnostics, use the safe serial-monitor helper:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
 ```
 
-The monitor helper always uses the validated settings:
-
-```text
-115200 baud
-RTS inactive
-DTR inactive
-```
-
-Equivalent direct command:
-
-```powershell
-pio device monitor -p COMx -b 115200 --rts 0 --dtr 0
-```
-
-### Shortest validated workflow
-
-After cloning:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\flash.ps1 -Port COMx
-powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
-```
-
-> Use `trigger-v3-safe` for first wiring checks. Use `trigger-v3-compat` only when the recoil and rumble power stages are ready.
+The monitor helper always uses 115200 baud with RTS and DTR inactive.
 
 ## Documentation
 
+- **[Beginner start-to-finish walkthrough](START_HERE.md)**
 - [Documentation index](docs/DOCUMENTATION_INDEX.md)
 - [Firmware architecture](docs/ARCHITECTURE.md)
 - [Final hardware and wiring](docs/HARDWARE.md)
@@ -237,6 +180,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
 
 ```text
 .
+|-- START_HERE.md
 |-- include/
 |   |-- BootHealth.h
 |   |-- ForceTubeProtocol.h
@@ -254,21 +198,11 @@ powershell -ExecutionPolicy Bypass -File .\scripts\monitor.ps1 -Port COMx
 |   |-- reference-original/
 |   `-- ...
 |-- scripts/
+|   |-- first-flash.ps1
+|   |-- flash.ps1
+|   |-- build.ps1
+|   `-- monitor.ps1
 |-- platformio.ini
 |-- CHANGELOG.md
 `-- VERSION
 ```
-
-The layout deliberately uses plain ASCII tree characters so it renders correctly regardless of Windows shell/editor code page.
-
-## Safety
-
-ESP32 GPIO pins provide logic/control signals only. Never power the recoil solenoid or rumble motors directly from an ESP32 GPIO.
-
-For the validated prototype, **do not power the OLED from the ESP32 3V3 pin**. Use the regulated external 5 V buck output for OLED VCC and keep a common ground. This recommendation applies to the exact tested OLED module; for another breakout, verify the module VCC rating and confirm that SDA/SCL remain within ESP32-safe 3.3 V logic levels before connecting them.
-
-Verify the actual power source, measured current, fuse/protection, wire gauge, connectors, MOSFET stage, BTS7960 cooling, common ground strategy and mechanical mounting before energizing a rebuild.
-
-## License
-
-No open-source license has been selected yet. Keep the repository private until the public-release checklist is reviewed and the intended license is added.
