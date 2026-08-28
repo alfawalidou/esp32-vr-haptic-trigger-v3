@@ -1,3 +1,13 @@
+/*
+ * ESP32 VR Haptic Trigger V3
+ * Original project by alfawalidou / McWall
+ * GitHub: https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3
+ * Discord: .mcwall | Telegram: @McWall07
+ *
+ * Copyright 2026 alfawalidou / McWall
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include <Arduino.h>
 #include <BluetoothSerial.h>
 #include <FastLED.h>
@@ -9,6 +19,7 @@
 #include "ForceTubeProtocol.h"
 #include "HapticController.h"
 #include "HapticProfiles.h"
+#include "ProjectIdentity.h"
 #include "TriggerV3Config.h"
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -34,6 +45,7 @@ using trigger_v3::HapticCommand;
 using trigger_v3::HapticController;
 using trigger_v3::HealthStatus;
 namespace config = trigger_v3::config;
+namespace identity = trigger_v3::identity;
 namespace profiles = trigger_v3::profiles;
 
 enum class OperatingMode : uint8_t {
@@ -161,6 +173,7 @@ uint32_t gLocalProfileRumbleStartedAt = 0;
 uint32_t gProfilePressedAt = 0;
 uint32_t gBuzzerStartedAt = 0;
 uint32_t gBuzzerDurationMs = 0;
+uint32_t gAuthorSplashUntil = 0;
 uint8_t gLastLocalChargeRumbleIntensity = 0;
 uint8_t gLocalProfileRumbleIntensity = 0;
 
@@ -1024,7 +1037,39 @@ void drawForceTubeLiveDisplay() {
   drawBottomStatus();
 }
 
+void showAuthorSplash(uint32_t now) {
+  if (!gDisplayReady) {
+    return;
+  }
+
+  gDisplay.clearDisplay();
+  gDisplay.setTextColor(SSD1306_WHITE);
+  gDisplay.setTextSize(2);
+  gDisplay.setCursor(4, 0);
+  gDisplay.print("TRIGGER V3");
+  gDisplay.setTextSize(1);
+  gDisplay.setCursor(0, 20);
+  gDisplay.print("by alfawalidou /");
+  gDisplay.setCursor(0, 30);
+  gDisplay.print("McWall");
+  gDisplay.setCursor(0, 42);
+  gDisplay.print("GitHub: alfawalidou");
+  gDisplay.setCursor(0, 54);
+  gDisplay.print("@McWall07 | .mcwall");
+  gDisplay.display();
+  gAuthorSplashUntil = now + identity::kAuthorSplashDurationMs;
+  gDisplayDirty = true;
+}
+
 void updateDisplay(uint32_t now) {
+  if (gAuthorSplashUntil != 0) {
+    if (static_cast<int32_t>(now - gAuthorSplashUntil) < 0) {
+      return;
+    }
+    gAuthorSplashUntil = 0;
+    gDisplayDirty = true;
+  }
+
   if (!gDisplayReady || !gDisplayDirty ||
       static_cast<uint32_t>(now - gLastDisplayRefreshAt) < config::kDisplayRefreshMs) {
     return;
@@ -1060,7 +1105,8 @@ void setup() {
   setOutputsSafeBeforeBoot();
 
   Serial.begin(115200);
-  Serial.println("[BOOT] Trigger V3");
+  Serial.printf("[BOOT] %s\n", identity::kProjectName);
+  Serial.printf("[BOOT] by %s\n", identity::kAuthor);
 
   FastLED.addLeds<WS2812B, config::kLedDataPin, RGB>(gLeds, config::kLedCount);
   FastLED.setBrightness(config::kLedBrightness);
@@ -1131,6 +1177,9 @@ void setup() {
       true,
       "I2C_ACK"
     );
+    if (gDisplayReady) {
+      showAuthorSplash(millis());
+    }
   } else {
     gBootHealth.report(
       "oled",
