@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "author": "alfawalidou / McWall",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 20,
+      "left": -20,
+      "attrs": {}
+    },
+    {
+      "type": "board-ssd1306",
+      "id": "oled",
+      "top": -180,
+      "left": 260,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "triggerBtn",
+      "top": 280,
+      "left": 260,
+      "attrs": { "label": "TRIGGER GPIO13", "color": "red", "key": "T" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "profileBtn",
+      "top": 380,
+      "left": 260,
+      "attrs": { "label": "PROFILE / MODE GPIO14", "color": "blue", "key": "P" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 210,
+      "left": -250,
+      "attrs": { "volume": "0.08", "mode": "smooth" }
+    },
+    {
+      "type": "wokwi-led-strip",
+      "id": "statusLeds",
+      "top": -160,
+      "left": -260,
+      "attrs": { "pixels": "2", "pixelShape": "circle", "pixelSize": "5050" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "rumbleLed",
+      "top": 50,
+      "left": 360,
+      "attrs": { "color": "yellow", "label": "RUMBLE PWM GPIO17" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rumbleR",
+      "top": 56,
+      "left": 270,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "forwardLed",
+      "top": 120,
+      "left": 360,
+      "attrs": { "color": "red", "label": "SOLENOID LPWM GPIO5" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "forwardR",
+      "top": 126,
+      "left": 270,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "reverseLed",
+      "top": 190,
+      "left": 360,
+      "attrs": { "color": "green", "label": "SOLENOID RPWM GPIO23" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "reverseR",
+      "top": 196,
+      "left": 270,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-logic-analyzer",
+      "id": "logic",
+      "top": 500,
+      "left": -20,
+      "attrs": {
+        "channelNames": "RUMBLE,LPWM,RPWM,WS2812,TRIGGER,PROFILE,D6,D7",
+        "bufferSize": "1000000"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "title",
+      "top": -250,
+      "left": -260,
+      "attrs": { "text": "ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "powerNote",
+      "top": -235,
+      "left": 250,
+      "attrs": { "text": "SIM ONLY: ESP32 5V pin represents the validated external regulated 5V buck OUT for OLED VCC." }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "btNote",
+      "top": 460,
+      "left": 250,
+      "attrs": { "text": "Bluetooth is not simulated by Wokwi. Use the Serial Terminal: KICK 255, RUMBLE 128, RUMBLE 0, BT OFF, BT ON, HELP" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "esp:21", "oled:SDA", "green", [] ],
+    [ "esp:22", "oled:SCL", "blue", [] ],
+    [ "esp:5V", "oled:VCC", "red", [] ],
+    [ "esp:GND.2", "oled:GND", "black", [] ],
+
+    [ "esp:13", "triggerBtn:1.l", "orange", [] ],
+    [ "triggerBtn:2.l", "esp:GND.2", "black", [] ],
+    [ "esp:14", "profileBtn:1.l", "purple", [] ],
+    [ "profileBtn:2.l", "esp:GND.2", "black", [] ],
+
+    [ "esp:27", "buzzer:2", "cyan", [] ],
+    [ "buzzer:1", "esp:GND.1", "black", [] ],
+
+    [ "esp:16", "statusLeds:DIN", "green", [] ],
+    [ "esp:5V", "statusLeds:VDD", "red", [] ],
+    [ "esp:GND.1", "statusLeds:VSS", "black", [] ],
+
+    [ "esp:17", "rumbleR:1", "yellow", [] ],
+    [ "rumbleR:2", "rumbleLed:A", "yellow", [] ],
+    [ "rumbleLed:C", "esp:GND.2", "black", [] ],
+
+    [ "esp:5", "forwardR:1", "red", [] ],
+    [ "forwardR:2", "forwardLed:A", "red", [] ],
+    [ "forwardLed:C", "esp:GND.2", "black", [] ],
+
+    [ "esp:23", "reverseR:1", "green", [] ],
+    [ "reverseR:2", "reverseLed:A", "green", [] ],
+    [ "reverseLed:C", "esp:GND.2", "black", [] ],
+
+    [ "esp:17", "logic:D0", "yellow", [] ],
+    [ "esp:5", "logic:D1", "red", [] ],
+    [ "esp:23", "logic:D2", "green", [] ],
+    [ "esp:16", "logic:D3", "blue", [] ],
+    [ "esp:13", "logic:D4", "orange", [] ],
+    [ "esp:14", "logic:D5", "purple", [] ],
+    [ "logic:GND", "esp:GND.3", "black", [] ]
+  ],
+  "serialMonitor": {
+    "display": "terminal",
+    "newline": "lf",
+    "convertEol": false
+  },
+  "dependencies": {}
+}
