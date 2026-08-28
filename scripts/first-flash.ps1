@@ -1,3 +1,8 @@
+# ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall
+# GitHub: https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3
+# Discord: .mcwall | Telegram: @McWall07
+# SPDX-License-Identifier: Apache-2.0
+
 $ErrorActionPreference = "Stop"
 
 function Resolve-PlatformIO {
@@ -15,6 +20,8 @@ $Pio = Resolve-PlatformIO
 
 Write-Host ""
 Write-Host "ESP32 VR Haptic Trigger V3 - Beginner First Flash"
+Write-Host "by alfawalidou / McWall"
+Write-Host "Discord .mcwall | Telegram @McWall07"
 Write-Host "=================================================="
 Write-Host "Repository: $RepoRoot"
 Write-Host ""
