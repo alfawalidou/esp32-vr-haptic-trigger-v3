@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use, modify, redistribute, demonstrate, publish or write about this project, please cite the original project and preserve its attribution."
+title: "ESP32 VR Haptic Trigger V3"
+type: software
+authors:
+  - family-names: "alfawalidou / McWall"
+    alias: "alfawalidou"
+version: "3.0.0-validated"
+date-released: 2026-08-26
+repository-code: "https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3"
+url: "https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3"
+license: Apache-2.0
+keywords:
+  - ESP32
+  - VR
+  - haptics
+  - ForceTube
+  - Bluetooth Classic
+  - recoil
+  - DIY
+abstract: "Hardware-validated ESP32 firmware and documentation for a DIY VR haptic gun/gunstock controller with ForceTube-compatible Bluetooth haptics and local trigger profiles. Original project by alfawalidou / McWall."
