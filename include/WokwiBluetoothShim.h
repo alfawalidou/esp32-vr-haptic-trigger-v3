@@ -18,6 +18,11 @@
 #error "WokwiBluetoothShim.h must only be used by the trigger-v3-wokwi environment"
 #endif
 
+// PlatformIO's -include flag is applied to every translation unit, including
+// C sources from framework libraries. Keep the shim completely empty for C
+// compilation units: Arduino/C++ headers such as <cstdio> are not valid there.
+#ifdef __cplusplus
+
 #include <Arduino.h>
 #include <cstdio>
 #include <cstring>
@@ -208,3 +213,5 @@ class BluetoothSerial {
   char line_[kLineSize]{};
   size_t lineLength_ = 0;
 };
+
+#endif  // __cplusplus
