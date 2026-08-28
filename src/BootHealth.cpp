@@ -12,6 +12,7 @@
 
 #include <cstring>
 
+#include "ProjectIdentity.h"
 #include "TriggerV3Config.h"
 
 namespace trigger_v3 {
@@ -33,6 +34,18 @@ void BootHealthReporter::report(
   bool optional,
   const char* physicalPresence
 ) {
+  static bool projectIdentityPrinted = false;
+  if (!projectIdentityPrinted) {
+    Serial.printf("[PROJECT] %s — by %s\n", identity::kProjectName, identity::kAuthor);
+    Serial.printf("[SOURCE] %s\n", identity::kRepository);
+    Serial.printf(
+      "[CONTACT] Discord %s | Telegram %s\n",
+      identity::kDiscord,
+      identity::kTelegram
+    );
+    projectIdentityPrinted = true;
+  }
+
   Serial.printf("[HEALTH] %-24s %-12s %s\n", component, statusName(status), detail);
   if (entryCount_ < kMaximumEntries) {
     entries_[entryCount_++] = {
