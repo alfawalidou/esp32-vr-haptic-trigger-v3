@@ -1,65 +1,37 @@
 # Final Trigger V3 pinout and breakout mapping
 
-> Current standalone authority: GPIO13 = TRIGGER, GPIO14 = PROFILE/MODE, GPIO4 = unused. The original wiring document below is preserved because it contains the detailed 30-pin breakout mapping. Its older SAFE-only validation notes are historical; the final COMPAT build has since been physically validated.
->
-> **OLED power correction — 28/08/2026:** for the validated prototype, OLED VCC is **strongly recommended from the external regulated 5 V buck output**. Do **not** use the ESP32 `3V3` pin for OLED VCC on this build. The exact tested OLED module kept SDA/SCL at about 3.2 V with VCC at 5 V; other OLED breakouts must be checked before using the same arrangement.
-
-# Trigger V3 — câblage final à deux boutons physiques
-
-> **Statut : architecture deux boutons implémentée et testée physiquement en SAFE le 25/08/2026.**
-
-Configuration retenue :
+This document is the **current standalone wiring authority** for Trigger V3.
 
 ```text
 GPIO13 = TRIGGER
-GPIO14 = PROFILE
-GPIO4  = libre
+GPIO14 = PROFILE / MODE
+GPIO4  = UNUSED / FREE
 ```
 
-PROFILE GPIO14 :
+GPIO14 behavior:
 
 ```text
-appui court     -> profil suivant
-appui long ~1 s -> HAPTIC_ONLY <-> TRIGGER_FALLBACK
+short press     -> next profile
+long press ~1 s -> HAPTIC_ONLY <-> TRIGGER_FALLBACK
 ```
 
-Il n'y a plus de bouton MODE séparé.
+There is no separate MODE button in the final design.
 
-## Schémas et mapping
+## Final shield map
 
-Le mapping corrigé du shield DIY reste la référence pour identifier les borniers :
+Use this diagram for the final DIY-shield terminal mapping:
 
-![Mapping corrigé du shield DIY](assets/wiring/trigger-v3-diy-shield-pinmap-corrected.svg)
+![Trigger V3 final DIY shield pin map](assets/wiring/trigger-v3-diy-shield-pinmap-final.svg)
 
-Version raster :
+Direct SVG link: [`trigger-v3-diy-shield-pinmap-final.svg`](assets/wiring/trigger-v3-diy-shield-pinmap-final.svg)
 
-- [`trigger-v3-diy-shield-pinmap-corrected.png`](assets/wiring/trigger-v3-diy-shield-pinmap-corrected.png)
+> Historical diagrams are kept under [`reference-original/trigger-v3/assets/wiring/`](reference-original/trigger-v3/assets/wiring/). Some of them predate the final GPIO14 migration and must **not** be used as current wiring instructions.
 
-> **Important :** l'ancien schéma `trigger-v3-simplified-one-button-wiring.svg/png` montre encore PROFILE sur GPIO4. Il est désormais obsolète pour le câblage des boutons.
+## Exact 30-pin breakout mapping
 
-## Commandes
+**Orientation: USB at the bottom.** Do not infer a GPIO from visual alignment with the ESP32 header.
 
-| Commande | GPIO | Fonction |
-|---|---:|---|
-| Trigger physique | 13 | Exécute le `ProfileBehavior` uniquement en `TRIGGER_FALLBACK` |
-| PROFILE — appui court | 14 | Profil suivant |
-| PROFILE — appui long ~1 s | 14 | `HAPTIC_ONLY` ↔ `TRIGGER_FALLBACK` |
-| Bouton MODE séparé | — | supprimé |
-| GPIO4 | — | libre / inutilisé |
-
-Le comportement de tir est défini par le profil :
-
-- `PISTOL` → `SINGLE`
-- `SNIPER` → `SINGLE`
-- `M16` → `AUTO`
-- `P90` → `AUTO`
-- `LASER` → `CHARGE_RELEASE` (`Uncalibrated`)
-
-## Mapping exact des borniers du shield DIY
-
-**Orientation : USB en bas.** Ne pas déduire le GPIO par proximité visuelle avec la rangée de broches ESP32.
-
-### Rangée horizontale supérieure — gauche → droite
+### Top horizontal row — left to right
 
 1. `D35 / GPIO35`
 2. `D34 / GPIO34`
@@ -72,7 +44,7 @@ Le comportement de tir est défini par le profil :
 9. `RX0 / GPIO3`
 10. `D21 / GPIO21`
 
-### Rangée verticale gauche — haut → bas
+### Left vertical row — top to bottom
 
 1. `D32 / GPIO32`
 2. `D33 / GPIO33`
@@ -85,7 +57,7 @@ Le comportement de tir est défini par le profil :
 9. `GND`
 10. `VIN / 5V`
 
-### Rangée verticale droite — haut → bas
+### Right vertical row — top to bottom
 
 1. `D19 / GPIO19`
 2. `D18 / GPIO18`
@@ -98,38 +70,26 @@ Le comportement de tir est défini par le profil :
 9. `GND`
 10. `3V3`
 
-> The `3V3` terminal above is part of the physical breakout mapping only. It is **not** the recommended OLED VCC source for the validated prototype.
+> The `3V3` terminal above is listed only because it physically exists on the breakout. It is **not** the recommended OLED VCC source for the validated prototype.
 
-## Borniers utilisés par Trigger V3
+## Trigger V3 connections
 
-| Fonction | GPIO ESP32 / source | Bornier / connexion |
+| Function | ESP32 GPIO / source | Breakout terminal / connection |
 |---|---:|---|
-| BTS7960 RPWM | 23 | `D23` — rangée haute, position 6 |
-| OLED SCL | 22 | `D22` — rangée haute, position 7 |
-| OLED SDA | 21 | `D21` — rangée haute, position 10 |
-| BTS7960 LPWM | 5 | `D5` — côté droit, position 3 |
-| Rumble MOSFET gate | 17 | `TX2` — côté droit, position 4 |
-| WS2812 data | 16 | `RX2` — côté droit, position 5 |
-| PROFILE | 14 | `D14` — côté gauche, position 6 |
-| Buzzer | 27 | `D27` — côté gauche, position 5 |
-| Trigger | 13 | `D13` — côté gauche, position 8 |
-| OLED VCC | external regulated 5 V | **buck OUT; strongly recommended instead of ESP32 3V3** |
-| OLED GND / boutons | GND | common ground |
+| BTS7960 RPWM | 23 | `D23` — top row, position 6 |
+| OLED SCL | 22 | `D22` — top row, position 7 |
+| OLED SDA | 21 | `D21` — top row, position 10 |
+| BTS7960 LPWM | 5 | `D5` — right side, position 3 |
+| Rumble MOSFET gate | 17 | `TX2` — right side, position 4 |
+| WS2812 data | 16 | `RX2` — right side, position 5 |
+| PROFILE / MODE | 14 | `D14` — left side, position 6 |
+| Buzzer | 27 | `D27` — left side, position 5 |
+| Trigger | 13 | `D13` — left side, position 8 |
+| GPIO4 | 4 | `D4` — unused / free |
+| OLED VCC | external regulated 5 V | **buck OUT** |
+| OLED GND / buttons | GND | common ground |
 
-### GPIO4
-
-`D4 / GPIO4` est libre et n'est plus utilisé par les commandes physiques Trigger V3.
-
-### GPIO14
-
-`D14 / GPIO14` est le bouton **PROFILE** :
-
-- appui court : profil suivant ;
-- appui long ~1 s : `HAPTIC_ONLY` ↔ `TRIGGER_FALLBACK`.
-
-## OLED SSD1306
-
-### Validated / recommended wiring
+## OLED SSD1306 — validated wiring
 
 ```text
 OLED GND -> common GND
@@ -138,9 +98,9 @@ OLED SDA -> GPIO21 / D21
 OLED SCL -> GPIO22 / D22
 ```
 
-**Do not connect OLED VCC to the ESP32 `3V3` pin on the validated prototype.** Repeated troubleshooting showed severe instability when the OLED VCC lead was connected to ESP32 `3V3`; moving OLED VCC directly to the regulated 5 V buck output restored stable autonomous operation over repeated multi-minute tests.
+**Do not connect OLED VCC to the ESP32 `3V3` pin on the validated prototype.** Repeated troubleshooting showed severe instability when the OLED VCC lead was routed from ESP32 `3V3`; moving OLED VCC directly to the regulated external 5 V buck output restored stable autonomous operation.
 
-The exact OLED module used here was checked before finalizing this wiring:
+Measurements on the exact OLED module used for validation:
 
 ```text
 OLED VCC = 5.0 V
@@ -148,75 +108,70 @@ OLED SDA ≈ 3.2 V
 OLED SCL ≈ 3.2 V
 ```
 
-Therefore SDA/SCL remained compatible with the ESP32 3.3 V I2C logic on this specific module. **Do not assume every SSD1306 breakout behaves the same way.** For another module, verify that it accepts 5 V VCC and that its I2C pull-ups do not raise SDA/SCL to 5 V.
+That result is module-specific. For another SSD1306 breakout, verify that it accepts 5 V VCC and that its I2C pull-ups do not raise SDA/SCL to 5 V before connecting it directly to the ESP32.
 
-Firmware parameters remain: SSD1306 `128x64`, address `0x3C`, SDA21/SCL22, I2C 400 kHz, timeout 20 ms.
+Firmware display parameters:
 
-## Trigger et PROFILE
+```text
+SSD1306 128x64
+I2C address 0x3C
+SDA GPIO21
+SCL GPIO22
+I2C 400 kHz
+timeout 20 ms
+```
 
-Les deux contacts sont normalement ouverts et utilisent `INPUT_PULLUP` :
+## Trigger and PROFILE / MODE switches
+
+Both switches are normally open and use `INPUT_PULLUP`:
 
 ```text
 GPIO13 ---- Trigger NO ---- GND
-GPIO14 ---- PROFILE NO ---- GND
+GPIO14 ---- Profile NO ---- GND
 ```
 
-Aucune résistance pull-up externe n'est requise pour la logique actuelle.
+No external pull-up resistor is required for the current firmware logic.
 
-## Alimentation et masse
-
-- Masse commune obligatoire : ESP32, BTS7960 logique, MOSFET rumble, buck, OLED et boutons.
-- **OLED VCC : external regulated 5 V from buck OUT is strongly recommended and is the validated wiring.**
-- **Do not use ESP32 `3V3` as OLED VCC on this prototype.**
-- SDA/SCL restent des signaux logiques ESP32 3,3 V sur GPIO21/GPIO22.
-- Ne jamais alimenter le solénoïde ou les moteurs rumble depuis une GPIO ESP32.
-- La puissance solénoïde reste séparée via BTS7960.
-
-## Validation SAFE — 25/08/2026
-
-Validé physiquement :
-
-- OLED SSD1306 détecté à `0x3C` ;
-- Bluetooth SPP connecté ;
-- gate SAFE actif ;
-- PROFILE GPIO14 court : boucle `PISTOL -> SNIPER -> M16 -> P90 -> LASER -> PISTOL` ;
-- PROFILE GPIO14 long ~1 s : `HAPTIC_ONLY` ↔ `TRIGGER_FALLBACK` ;
-- aucun changement de profil parasite pendant le long press ;
-- Trigger GPIO13 : PRESS/RELEASE ;
-- GPIO4 non requis.
-
-Logs observés :
+## Local profile order
 
 ```text
-[HEALTH] Trigger GPIO13           RESERVED
-[HEALTH] Profile GPIO14           RESERVED
-[HEALTH] OLED I2C 0x3C            DETECTED     I2C ACK; UI initialized
-
-[PROFILE] long press -> toggle operating mode
-[MODE] TRIGGER_FALLBACK
-[PROFILE] long press -> toggle operating mode
-[MODE] HAPTIC_ONLY
-
-[TRIGGER] pressed mode=HAPTIC_ONLY profile=SNIPER behavior=SINGLE
-[TRIGGER] released
+PISTOL -> SNIPER -> M16 -> P90 -> PKM -> LASER -> PISTOL
 ```
 
-## Encore à valider
+Local firing is active only in `TRIGGER_FALLBACK`.
 
-1. passer en `TRIGGER_FALLBACK` avec PROFILE long ;
-2. appuyer une fois sur Trigger GPIO13 en SAFE ;
-3. vérifier une demande locale `INHIBITED` par le gate SAFE ;
-4. tester SINGLE puis AUTO en SAFE ;
-5. seulement ensuite envisager le premier test local COMPAT.
+## Power and grounding rules
 
-## Invariants à ne pas toucher
+- Common reference ground is required for ESP32, BTS7960 logic, rumble MOSFET stage, buck converter, OLED and switches.
+- OLED VCC uses the **external regulated 5 V buck output** on the validated prototype.
+- OLED SDA/SCL remain ESP32 3.3 V logic signals on GPIO21/GPIO22.
+- Never power the recoil solenoid or rumble motors from an ESP32 GPIO.
+- Recoil power is handled through the BTS7960 power stage.
+- Size supply, fuse, wiring and connectors from the real measured actuator current, not from firmware constants alone.
 
-- Bluetooth Classic SPP `ForceTubeVR 1187883197`
-- aucun Wi-Fi
-- Forward 30 ms
-- Reverse 2 ms à 25 %
-- dead-time 100 µs
-- watchdog rumble 500 ms
-- guard `KICK=0`
-- buffering ForceTube
-- `HapticProfiles.h` reste la source de vérité des comportements
+## Validation status
+
+The final COMPAT baseline was physically validated with:
+
+- OLED detection at `0x3C`;
+- Bluetooth Classic SPP / ForceTube-compatible haptics;
+- GPIO13 trigger;
+- GPIO14 short profile change;
+- GPIO14 long `HAPTIC_ONLY` / `TRIGGER_FALLBACK` toggle;
+- local PISTOL, SNIPER, M16, P90, PKM and LASER profiles;
+- Bluetooth disconnect/reconnect and APK restart recovery;
+- autonomous operation with OLED VCC supplied from the external regulated 5 V buck output.
+
+See [`VALIDATION.md`](VALIDATION.md) for the current validation matrix.
+
+## Invariants
+
+- Bluetooth Classic SPP name: `ForceTubeVR 1187883197`
+- no Wi-Fi runtime path
+- recoil Forward: 30 ms
+- Reverse: 2 ms at 25%
+- direction dead-time: 100 µs
+- rumble watchdog: 500 ms
+- `KICK=0` remains non-destructive
+- overlapping nonzero KICK requests are inhibited, not queued for late replay
+- `HapticProfiles.h` remains the source of truth for local profiles

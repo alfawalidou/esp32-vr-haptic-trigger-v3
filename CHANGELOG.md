@@ -1,8 +1,23 @@
 # Changelog
 
+## Post-v3.1.0 documentation cleanup — 2026-08-28
+
+Documentation-only cleanup after the first public release:
+
+- repaired broken public wiring/image links;
+- added a current final DIY-shield SVG with GPIO14 as PROFILE/MODE and GPIO4 unused;
+- removed stale references to the deleted `feat/authorship-provenance` branch from the Wokwi guide;
+- updated the Wokwi guide to the current `VR HapGunV3` boot splash;
+- synchronized `RELEASE_NOTES_v3.1.0.md` with the assets that were actually published;
+- converted the pre-release checklist into a public-release status/future-work page;
+- clarified the distinction between the `v3.0.0-validated` physical baseline and the public `v3.1.0` release;
+- added archive compatibility placeholders so historical documentation no longer points to missing public files.
+
+No firmware behavior, build configuration, release tag or published v3.1.0 binary was changed by this cleanup.
+
 ## v3.1.0 — 2026-08-28
 
-First public binary release preparation for the standalone Trigger V3 project.
+First public binary release of the standalone Trigger V3 project.
 
 Highlights:
 
@@ -11,9 +26,13 @@ Highlights:
 - authorship and provenance metadata consolidated under **alfawalidou / McWall**;
 - Wokwi simulation environment added for OLED/UI and simulated ForceTube input testing;
 - current first-party project code and documentation moved to **PolyForm Noncommercial License 1.0.0**;
-- planned downloadable SAFE, COMPAT and complete/factory flash binaries with SHA-256 checksums.
+- published SAFE and COMPAT application binaries;
+- published SAFE and COMPAT complete/factory flash binaries;
+- published `SHA256SUMS.txt` with SHA-256 checksums for all four firmware binaries.
 
-The physical firmware behavior remains based on the previously validated Trigger V3 baseline. The new OLED splash was visually validated in Wokwi before this release preparation.
+The physical firmware behavior remains based on the previously validated Trigger V3 baseline. The v3.1.0 binaries were successfully compiled and the new OLED splash was visually validated in Wokwi before publication. The exact packaged v3.1.0 binaries did not undergo a new complete physical hardware validation cycle before publication.
+
+Release: <https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3/releases/tag/v3.1.0>
 
 ## Noncommercial licensing policy — 2026-08-28
 

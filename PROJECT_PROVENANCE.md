@@ -9,19 +9,31 @@ Official identities:
 - Telegram: `@McWall07`
 - Official repository: <https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3>
 
-## Historical provenance
+## Release lineage
 
-The standalone repository was extracted from the Trigger V3 development work preserved in the larger historical repository. The validated standalone baseline records the original internal V3 source baseline:
+The standalone repository was extracted from Trigger V3 development work preserved in the larger historical repository.
+
+The original internal V3 source baseline recorded by the standalone project is:
 
 ```text
 913fefff49d51f9b65072eacdb34fa90991b474a
 ```
 
-The validated standalone release identifier is:
+The immutable physically validated standalone baseline tag is:
 
 ```text
 v3.0.0-validated
 ```
+
+The first public binary release is:
+
+```text
+v3.1.0
+```
+
+Release page: <https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3/releases/tag/v3.1.0>
+
+`v3.0.0-validated` remains the historical physical-validation anchor and is not moved or reused. `v3.1.0` is the public release line that added release packaging, authorship/provenance presentation, Wokwi support, the `VR HapGunV3` splash and the current noncommercial licensing policy.
 
 Git history, tags, validation documents, hardware photos, profile tuning and the preserved engineering archive provide chronological provenance for the project.
 
