@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: "alfawalidou / McWall"
     alias: "alfawalidou"
-version: "3.0.0-validated"
-date-released: 2026-08-26
+version: "3.1.0"
+date-released: 2026-08-28
 repository-code: "https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3"
 url: "https://github.com/alfawalidou/esp32-vr-haptic-trigger-v3"
 license: PolyForm-Noncommercial-1.0.0
