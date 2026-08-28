@@ -1,5 +1,21 @@
 # Changelog
 
+## Authorship and provenance pass — 2026-08-28
+
+Project identity is now consistently recorded as **alfawalidou / McWall**.
+
+Added:
+
+- Apache License 2.0 and `NOTICE` attribution;
+- `AUTHORS.md` and GitHub-compatible `CITATION.cff`;
+- `PROJECT_PROVENANCE.md` with the historical source baseline, characteristic technical fingerprint and passive firmware origin marker;
+- `include/ProjectIdentity.h` with project, author, repository and contact metadata;
+- project authorship headers in first-party firmware source/header files and build/flash scripts;
+- visible boot diagnostics showing `by alfawalidou / McWall`, official repository, Discord `.mcwall` and Telegram `@McWall07`;
+- beginner walkthrough and README attribution links.
+
+The passive origin marker performs no tracking, network access, telemetry or phone-home behavior.
+
 ## Wiring correction — 2026-08-28
 
 Hardware troubleshooting identified a stability issue related to powering/routing OLED VCC from the ESP32 `3V3` pin on the validated prototype.
