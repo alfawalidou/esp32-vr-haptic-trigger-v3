@@ -23,7 +23,7 @@ static constexpr char kRepository[] =
   "github.com/alfawalidou/esp32-vr-haptic-trigger-v3";
 static constexpr char kDiscord[] = ".mcwall";
 static constexpr char kTelegram[] = "@McWall07";
-static constexpr char kFirmwareVersion[] = "3.0.0-validated";
+static constexpr char kFirmwareVersion[] = "3.1.0";
 static constexpr uint32_t kAuthorSplashDurationMs = 1500;
 
 // Passive provenance marker intentionally embedded in the firmware image.
