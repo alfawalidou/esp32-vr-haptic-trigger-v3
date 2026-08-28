@@ -1,12 +1,24 @@
 # Changelog
 
+## Noncommercial licensing policy — 2026-08-28
+
+The current project is now licensed under **PolyForm Noncommercial License 1.0.0** (`PolyForm-Noncommercial-1.0.0`).
+
+- Personal, hobby, research, testing and other noncommercial uses are permitted under the license terms.
+- Commercial use, sale, resale, paid-product integration or use for commercial advantage is **not licensed** by the project license.
+- Any commercial use requires a separate prior written license from **alfawalidou / McWall**.
+- First-party source files and build scripts now use the SPDX identifier `PolyForm-Noncommercial-1.0.0`.
+- Previously distributed commits or tags that were made available under Apache License 2.0 remain subject to the rights already granted for those historical versions; the new license applies prospectively to the current and future project versions.
+
+Third-party libraries and dependencies keep their own licenses.
+
 ## Authorship and provenance pass — 2026-08-28
 
 Project identity is now consistently recorded as **alfawalidou / McWall**.
 
 Added:
 
-- Apache License 2.0 and `NOTICE` attribution;
+- at that stage, Apache License 2.0 and `NOTICE` attribution (later superseded for current/future first-party project versions by PolyForm Noncommercial License 1.0.0 as recorded above);
 - `AUTHORS.md` and GitHub-compatible `CITATION.cff`;
 - `PROJECT_PROVENANCE.md` with the historical source baseline, characteristic technical fingerprint and passive firmware origin marker;
 - `include/ProjectIdentity.h` with project, author, repository and contact metadata;

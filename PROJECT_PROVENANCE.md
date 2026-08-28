@@ -67,8 +67,14 @@ The project also embeds readable identity strings for the author and official re
 
 ## Attribution expected from derivatives
 
-Please preserve this attribution when publishing or redistributing work derived from the project:
+Please preserve this attribution when publishing or redistributing work derived from the project for a permitted purpose:
 
 > ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall
+
+## Current licensing policy
+
+Current first-party project code and documentation are licensed under **PolyForm Noncommercial License 1.0.0** (`PolyForm-Noncommercial-1.0.0`). The project is intended for personal, hobby and other noncommercial use. Commercial use, sale, resale, paid-product integration or use for commercial advantage is not licensed and requires separate prior written permission from **alfawalidou / McWall**.
+
+Third-party dependencies keep their own licenses. Historical versions or commits previously distributed under Apache License 2.0 retain the rights already granted for those historical copies; the current noncommercial license applies prospectively to current and future first-party project versions.
 
 See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), [`AUTHORS.md`](AUTHORS.md) and [`CITATION.cff`](CITATION.cff).

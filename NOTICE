@@ -11,6 +11,13 @@ GitHub: @alfawalidou
 Discord: .mcwall
 Telegram: @McWall07
 
-This NOTICE is part of the project distribution. Redistributions and derivative works must preserve the applicable copyright, license and attribution notices as required by the Apache License, Version 2.0.
+Required Notice: Copyright 2026 alfawalidou / McWall
+Required Notice: Commercial use is not licensed. Any commercial use requires prior written permission and a separate license from alfawalidou / McWall.
+
+Current first-party project code and documentation are licensed under the PolyForm Noncommercial License 1.0.0 (`PolyForm-Noncommercial-1.0.0`). Personal, hobby and other noncommercial use is permitted according to that license. Commercial use, sale, resale, paid-product integration or use for commercial advantage requires separate prior written permission from the copyright holder.
+
+Third-party libraries and dependencies remain subject to their own licenses.
+
+Historical versions or commits previously distributed under Apache License 2.0 retain the rights already granted for those historical copies; the current noncommercial license applies prospectively to current and future first-party project versions.
 
 ForceTube and ProTubeVR names are referenced only for protocol/interoperability description. This project is not affiliated with ProTubeVR.

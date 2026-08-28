@@ -11,11 +11,11 @@ If you are building the project for the first time and do not need firmware-deve
 
 ## Author, license and provenance
 
-- [`../AUTHORS.md`](../AUTHORS.md) - original creator identity and preferred attribution
-- [`../PROJECT_PROVENANCE.md`](../PROJECT_PROVENANCE.md) - historical provenance, technical fingerprint and passive firmware origin marker
+- [`../AUTHORS.md`](../AUTHORS.md) - original creator identity, preferred attribution and permitted-use summary
+- [`../PROJECT_PROVENANCE.md`](../PROJECT_PROVENANCE.md) - historical provenance, technical fingerprint, passive firmware origin marker and current licensing policy
 - [`../CITATION.cff`](../CITATION.cff) - machine-readable citation metadata for GitHub and research/publication use
-- [`../LICENSE`](../LICENSE) - Apache License 2.0
-- [`../NOTICE`](../NOTICE) - redistribution attribution notice
+- [`../LICENSE`](../LICENSE) - PolyForm Noncommercial License 1.0.0 (`PolyForm-Noncommercial-1.0.0`); commercial use requires separate prior written permission
+- [`../NOTICE`](../NOTICE) - required attribution and noncommercial-use notice
 
 ## Simulation
 

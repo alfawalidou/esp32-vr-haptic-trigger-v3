@@ -5,7 +5,7 @@
  * Discord: .mcwall | Telegram: @McWall07
  *
  * Copyright 2026 alfawalidou / McWall
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
  */
 
 #pragma once

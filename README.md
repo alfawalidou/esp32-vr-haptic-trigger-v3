@@ -5,6 +5,8 @@ Discord: `.mcwall` · Telegram: `@McWall07`
 
 > If you reuse, fork, modify, redistribute, demonstrate or publish work based on this project, please preserve the original attribution: **ESP32 VR Haptic Trigger V3 — by alfawalidou / McWall**.
 
+> **Personal / noncommercial use only:** the current first-party project is licensed under the **PolyForm Noncommercial License 1.0.0** (`PolyForm-Noncommercial-1.0.0`). Commercial use, sale, resale, incorporation into a paid product or service, or use for commercial advantage is **not licensed**. Any commercial use requires separate prior written permission from **alfawalidou / McWall**. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+
 <!-- AUTO REF 01 -->
 ![](ref/01.jpg)
 
@@ -175,7 +177,9 @@ ESP32 VR Haptic Trigger V3 is the original project of **alfawalidou / McWall**.
 
 The firmware embeds readable project identity strings plus a passive provenance marker. It does **not** perform tracking, phone-home behavior or network telemetry for attribution. See [`PROJECT_PROVENANCE.md`](PROJECT_PROVENANCE.md).
 
-This project is licensed under **Apache License 2.0**. Redistributions and derivatives must comply with [`LICENSE`](LICENSE) and preserve the applicable notices in [`NOTICE`](NOTICE). See also [`AUTHORS.md`](AUTHORS.md) and [`CITATION.cff`](CITATION.cff).
+Current first-party project code and documentation are licensed under **PolyForm Noncommercial License 1.0.0** (`PolyForm-Noncommercial-1.0.0`). Personal, hobby and other noncommercial uses are permitted according to the license. Commercial use is not granted; any commercial use requires separate prior written permission from **alfawalidou / McWall**. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), [`AUTHORS.md`](AUTHORS.md) and [`CITATION.cff`](CITATION.cff).
+
+Third-party libraries and dependencies keep their own licenses. Historical versions or commits that were already distributed under Apache License 2.0 retain the rights previously granted for those historical copies; the current noncommercial licensing policy applies prospectively to current and future first-party project versions.
 
 ## Documentation
 

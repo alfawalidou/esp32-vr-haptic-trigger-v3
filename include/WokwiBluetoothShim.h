@@ -5,7 +5,7 @@
  * Discord: .mcwall | Telegram: @McWall07
  *
  * Copyright 2026 alfawalidou / McWall
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
  *
  * Wokwi-only BluetoothSerial compatibility shim.
  * This file is force-included only by the trigger-v3-wokwi PlatformIO env.
